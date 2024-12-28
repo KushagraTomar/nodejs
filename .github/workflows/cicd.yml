@@ -18,11 +18,11 @@ jobs:
       - name: publish image to docker hub
         run: docker push kush123tomar123/nodejs:latest
 
-deploy:
-  needs: build
-  runs-on: self-hosted
-  steps:
-    - name: pull image from docker hub
-      run: docker pull kush123tomar123/nodejs:latest
-    - name: run docker container
-      run: docker run -d -p 3001:3001 --name nodejs-app-container kush123tomar123/nodejs 
+  deploy:
+    needs: build
+    runs-on: self-hosted
+    steps:
+      - name: pull image from docker hub
+        run: docker pull kush123tomar123/nodejs:latest
+      - name: run docker container
+        run: docker run -d -p 3001:3001 --name nodejs-app-container kush123tomar123/nodejs 
