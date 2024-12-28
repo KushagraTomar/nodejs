@@ -26,6 +26,10 @@ const itemSchema = new mongoose.Schema({
 
 const Item = mongoose.model('Item', itemSchema)
 
+app.get('/', async(req, res) => {
+  res.status(200).send('Hello World, from Nodejs')
+})
+
 app.post('/items', async(req, res) => {
   try {
     const item = new Item(req.body)
