@@ -1,0 +1,28 @@
+ name: deploy node application
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout source
+        uses: actions/checkout@v4
+      - name: login to docker hub
+        run: docker login -u kush123tomar123 -p ncs2015##
+      - name: build docker image
+        run: docker build -t kush123tomar123/nodejs .
+      - name: publish image to docker hub
+        run: docker push kush123tomar123/nodejs:latest
+
+deploy:
+  needs: build
+  runs-on: self-hosted
+  steps:
+    - name: pull image from docker hub
+      run: docker pull kush123tomar123/nodejs:latest
+    - name: run docker container
+      run: docker run -d -p 3001:3001 --name nodejs-app-container kush123tomar123/nodejs 
