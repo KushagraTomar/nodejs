@@ -22,6 +22,9 @@ jobs:
     needs: build
     runs-on: self-hosted
     steps:
+      - name: Stop and remove existing container if exists
+        run: |
+          docker ps -q -f name=nodejs-app-container | grep -q . && docker rm -f nodejs-app-container || echo "No existing container to remove"
       - name: pull image from docker hub
         run: docker pull kush123tomar123/nodejs:latest
       - name: run docker container
